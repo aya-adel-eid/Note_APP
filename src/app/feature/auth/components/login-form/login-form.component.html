@@ -1,0 +1,22 @@
+<form action="" [formGroup]="loginForm" (ngSubmit)="logIn()">
+  <mat-card>
+    <mat-card-title>
+      <h2 class="text-xl md:text-2xl lg:text-4xl text-rose-400 py-4">SignIn Now</h2>
+    </mat-card-title>
+    <mat-card-content>
+      <app-input-form [type]="'email'" [iD]="'email'" formControlName="email" [control]="loginForm.get('email')"
+        [label]="'UserEmail'" [placeholder]="'Ex.example@gmail.com'"></app-input-form>
+      <app-input-form [type]="'password'" [iD]="'password'" formControlName="password"
+        [control]="loginForm.get('password')" [label]="'UserPassword'"></app-input-form>
+      <div class="text-center">
+
+        <button class="bg-rose-400 px-12 font-medium cursor-pointer py-3 text-white rounded-3xl">SignIn</button>
+      </div>
+      <div class="flex justify-center p-6 items-center">
+        <span>Don't Have an account? </span>
+        <a routerLink="/signUp" class="text-rose-400 rounderline font-bold px-2 sm:text-xl lg:text-2xl cursor-pointer">
+          SignUp Now</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

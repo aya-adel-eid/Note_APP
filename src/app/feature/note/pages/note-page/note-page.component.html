@@ -1,0 +1,10 @@
+<div class="flex justify-center my-5 md:hidden w-full md:w-[80%]">
+  <input type="search" class="rounded-3xl w-full border-rose-200 focus:border-rose-400 focus:outline-none "
+    placeholder="Search Note..">
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2  gap-2">
+
+  @for (note of userNotes(); track note._id) {
+  <app-note-card [note]="note"></app-note-card>
+  }
+</div>

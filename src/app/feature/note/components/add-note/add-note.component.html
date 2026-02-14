@@ -1,0 +1,35 @@
+<mat-card class="p-5">
+  <mat-card-header>
+    <div class="flex justify-between items-center w-full mb-2">
+      <h2 class="text-xl font-semibold text-rose-500">Add new Note</h2>
+      <div>
+
+        <button class=" text-rose-500 block cursor-pointer" (click)="close()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+
+  </mat-card-header>
+  <mat-card-content>
+
+    <form action="" [formGroup]="objNote">
+
+      <div>
+        <label for="visitors" class="block mb-0.5 text-sm font-medium text-red-400">Title</label>
+        <input type="text" id="visitors" formControlName="title"
+          class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:outline-transparent  focus:border-rose-400 block w-full px-2.5 py-2 shadow-xs placeholder:text-body"
+          placeholder="" required />
+      </div>
+
+      <div class="my-4">
+
+        <textarea id="message" rows="4" formControlName="content"
+          class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base  focus:border-rose-400 focus:outline-none block w-full p-3.5 shadow-xs placeholder:text-body"
+          placeholder="Write your thoughts here..."></textarea>
+      </div>
+      <button class="text-white bg-rose-400 rounded-3xl px-8 py-3 font-semibold cursor-pointer"
+        (click)="sendData()">Save</button>
+      <button class="text-white bg-rose-400 rounded-3xl px-8 py-3 font-semibold cursor-pointer"
+        (click)="updateData()">Update</button>
+    </form>
+  </mat-card-content>
+</mat-card>

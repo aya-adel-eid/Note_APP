@@ -1,0 +1,28 @@
+<form action="">
+
+  <mat-form-field class="w-full ">
+    <mat-label class="">email</mat-label>
+    <input [formField]="logInForm.email" type="email" placeholder="userEmail" matInput
+      class="focus:outline-none focus:ring-0 bg-transparent " id="email">
+  </mat-form-field>
+  @if (logInForm.email().errors()&&logInForm.email().touched()) {
+  <mat-error class="text-sm md:text-xl  ">Ensure that these requirements are met:</mat-error>
+  @for (error of logInForm.email().errors(); track $index) {
+  <mat-error class="  mb-2"><span class="text-xl px-1.5">*</span>{{error.message}}</mat-error>
+  }
+  }
+  <mat-form-field class="w-full ">
+    <mat-label class="">Password</mat-label>
+    <input [formField]="logInForm.password" type="password" matInput placeholder="UserPassword"
+      class="focus:outline-none focus:ring-0 bg-transparent " id="password">
+  </mat-form-field>
+  @if (logInForm.password().errors()&&logInForm.password().touched()) {
+  <mat-error class="text-sm md:text-xl  ">Ensure that these requirements are met:</mat-error>
+  @if (logInForm.password().required()) {
+
+  <mat-error class="  mb-2"><span class="text-xl px-1.5">*</span>password is required</mat-error>
+  }
+
+  }
+  <button matButton="filled" (click)="logIn()" type="button"> sign in</button>
+</form>

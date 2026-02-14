@@ -1,0 +1,29 @@
+<form action="" [formGroup]="registerForm" (ngSubmit)="logUP()">
+  <mat-card class="p-8 shadow-none!">
+    <mat-card-title>
+      <h2 class="text-xl md:text-2xl lg:text-4xl text-rose-400 py-4">Register</h2>
+    </mat-card-title>
+    <mat-card-content>
+
+      <app-input-form [type]="'text'" [iD]="'name'" [label]="'UserName'" [control]="registerForm.get('name')"
+        formControlName="name"></app-input-form>
+      <app-input-form [type]="'email'" [iD]="'email'" [label]="'userEmail'" [control]="registerForm.get('email')"
+        formControlName="email"></app-input-form>
+      <app-input-form [type]="'password'" [iD]="'password'" [label]="'userPassword'"
+        [control]="registerForm.get('password')" formControlName="password"></app-input-form>
+      <app-input-form [type]="'number'" [iD]="'age'" [label]="'userAge'" [control]="registerForm.get('age')"
+        formControlName="age"></app-input-form>
+      <app-input-form [type]="'tel'" [iD]="'phone'" [label]="'userNumber'" [control]="registerForm.get('phone')"
+        formControlName="phone"></app-input-form>
+      <div class="text-center">
+
+        <button class="bg-rose-400 px-12 font-medium cursor-pointer py-3 text-white rounded-3xl">Sign Up</button>
+      </div>
+      <div class="flex justify-center p-6 items-center">
+        <span>already have an account? </span>
+        <a routerLink="/login" class="text-rose-400 rounderline font-bold px-2 sm:text-xl lg:text-2xl cursor-pointer">
+          SignIn Now</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
