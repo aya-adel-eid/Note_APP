@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { BaseHttpService } from '../../../core/services/helper/base-http.service';
 import { APP_APIS } from '../../../core/constance/APP_APIs';
-import { error } from 'console';
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { GetUserNotes, Note } from '../interfaces/userNotes';
 

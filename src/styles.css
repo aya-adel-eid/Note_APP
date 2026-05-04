@@ -5,3 +5,4 @@
 @plugin "flowbite/plugin";
 @plugin "flowbite/plugin";
 @import 'tailwindcss';
+@import './styles/toaster.css';

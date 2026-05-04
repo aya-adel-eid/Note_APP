@@ -18,6 +18,7 @@ import { Store } from '@ngrx/store';
 import { tap } from 'rxjs';
 import { logInAction } from '../../state/auth.actions';
 import { AuthAction } from '../../state/actions-type';
+import { selectToken } from '../../state/auth.selector';
 
 @Component({
   selector: 'app-login-form',
@@ -58,25 +59,24 @@ export class LoginFormComponent {
     });
   }
   logIn() {
-    this.authServices
-      .logIn(this.loginForm.value)
-      .pipe(
-        tap((resp) => {
-          // {
-          //   type: 'login page',
-          //   payload: {
-          //     resp: resp,
-          //   },
-          // }
-          this.stateStore.dispatch(AuthAction.logInAction(resp));
-        }),
-      )
-      .subscribe({
-        next: (resp) => {
-          localStorage.setItem(STORED_KYE.TOKEN, resp.token);
-          this.router.navigateByUrl('/note');
-        },
-        error: (error: HttpErrorResponse) => {},
-      });
+    this.stateStore.dispatch(logInAction(this.loginForm.value));
+    const token = this.stateStore.selectSignal(selectToken);
+    console.log(token());
+
+    // this.authServices
+    //   .logIn(this.loginForm.value)
+    //   .pipe(
+    //     tap((resp) => {
+
+    //       this.stateStore.dispatch(AuthAction.logInAction(resp));
+    //     }),
+    //   )
+    //   .subscribe({
+    //     next: (resp) => {
+    //       localStorage.setItem(STORED_KYE.TOKEN, resp.token);
+    //       this.router.navigateByUrl('/note');
+    //     },
+    //     error: (error: HttpErrorResponse) => {},
+    //   });
   }
 }

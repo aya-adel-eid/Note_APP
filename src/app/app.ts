@@ -3,9 +3,9 @@ import { RouterOutlet } from '@angular/router';
 import { FlowbiteService } from './core/services/flowbite/flowbite.service';
 import { initFlowbite } from 'flowbite';
 import { Store } from '@ngrx/store';
-import { isPlatformBrowser } from '@angular/common';
-import { logInAction } from './feature/auth/state/auth.actions';
+
 import { NgxSpinnerService, NgxSpinnerComponent } from 'ngx-spinner';
+import { autoLoginAction } from './feature/auth/state/auth.actions';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, NgxSpinnerComponent],
@@ -14,21 +14,22 @@ import { NgxSpinnerService, NgxSpinnerComponent } from 'ngx-spinner';
 })
 export class App {
   protected readonly title = signal('Not_App');
-  private readonly state = inject(Store);
+  private readonly store = inject(Store);
   private readonly flowbiteService = inject(FlowbiteService);
   private readonly platId = inject(PLATFORM_ID);
   private readonly spinner = inject(NgxSpinnerService);
   ngOnInit(): void {
+    this.store.dispatch(autoLoginAction());
     this.flowbiteService.loadFlowbite((flowbite) => {
       initFlowbite();
       // this.spinner.show('ball-beat');
     });
-    this.state.subscribe((state) => console.log(state));
-    if (isPlatformBrowser(this.platId)) {
-      const msg = localStorage.getItem('msg');
-      if (msg) {
-        this.state.dispatch(logInAction({ msg: msg }));
-      }
-    }
+    // this.state.subscribe((state) => console.log(state));
+    // if (isPlatformBrowser(this.platId)) {
+    //   const msg = localStorage.getItem('msg');
+    //   if (msg) {
+    //     this.state.dispatch(logInAction({ msg: msg }));
+    //   }
+    // }
   }
 }

@@ -7,6 +7,8 @@ import { AuthService } from '../../services/auth.service';
 import { error } from 'console';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { signUpAction } from '../../state/auth.actions';
 @Component({
   selector: 'app-logup-form',
   imports: [
@@ -24,6 +26,7 @@ import { RouterLink } from '@angular/router';
 export class LogupFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authServices = inject(AuthService);
+  private readonly store = inject(Store);
   registerForm!: FormGroup;
   constructor() {
     this.signUP();
@@ -46,9 +49,10 @@ export class LogupFormComponent {
     });
   }
   logUP() {
-    this.authServices.logUp(this.registerForm.value).subscribe({
-      next: (resp) => {},
-      error: (error: HttpErrorResponse) => {},
-    });
+    this.store.dispatch(signUpAction(this.registerForm.value));
+    // this.authServices.logUp(this.registerForm.value).subscribe({
+    //   next: (resp) => {},
+    //   error: (error: HttpErrorResponse) => {},
+    // });
   }
 }

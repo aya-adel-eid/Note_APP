@@ -5,20 +5,22 @@ import { App } from '../../../app';
 import { STORED_KYE } from '../../../core/constance/STORED_KYES';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { LogIn } from '../interfaces/Login';
+import { json } from 'stream/consumers';
+import { SignUp } from '../interfaces/signUp';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService extends BaseHttpService {
   private readonly router = inject(Router);
   logUp(userData: {}) {
-    return this.httpClient.post(APP_APIS.AUTH.SIGNUP, userData);
+    return this.httpClient.post<SignUp>(APP_APIS.AUTH.SIGNUP, userData);
   }
   logIn(userData: {}) {
-    return this.httpClient.post<any>(APP_APIS.AUTH.SIGNIN, userData);
+    return this.httpClient.post<LogIn>(APP_APIS.AUTH.SIGNIN, userData);
   }
   logOut() {
-    this.router.navigateByUrl('/login');
-    localStorage.removeItem(STORED_KYE.TOKEN);
+    localStorage.removeItem(STORED_KYE.user);
   }
   decodeCode(token: string): boolean | void {
     try {
@@ -28,4 +30,13 @@ export class AuthService extends BaseHttpService {
       this.logOut();
     }
   }
+  getAutoLocalStorage() {
+    const user = localStorage.getItem(STORED_KYE.user);
+    if (user) {
+      return JSON.parse(user);
+    }
+    return null;
+  }
+  // errors
+  getErrorMessage(message: string) {}
 }

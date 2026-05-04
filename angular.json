@@ -90,7 +90,14 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "include": ["**/*.spec.ts"],
+            "reporters": ["default"],
+            "browsers": ["chromium"],
+            "runnerConfig": "vitest-base.config.ts"
+          }
         }
       }
     }

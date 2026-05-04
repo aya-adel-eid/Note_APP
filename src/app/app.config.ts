@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './core/interceptors/token-interceptor';
-import { provideState, provideStore, USER_RUNTIME_CHECKS } from '@ngrx/store';
+import { provideState, provideStore, Store, USER_RUNTIME_CHECKS } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { authReducer } from './feature/auth/state/auth.reducer';
 import { provideEffects } from '@ngrx/effects';
@@ -14,6 +14,8 @@ import { spinnerInterceptor } from './core/interceptors/spinner-interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { NotesEffects } from './feature/note/state/note.effects';
 import { noteReducer } from './feature/note/state/note.reducer';
+import { provideToastr } from 'ngx-toastr';
+import { loadingSpinnerReducer } from './shared/loadingSpinnerState/loadingSpinner.reducer';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -25,6 +27,9 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideState({ name: 'auth', reducer: authReducer }),
     provideState({ name: 'Notes', reducer: noteReducer }),
+
+    provideState({ name: 'loading', reducer: loadingSpinnerReducer }),
     provideEffects([authEffect, NotesEffects]),
+    provideToastr(),
   ],
 };

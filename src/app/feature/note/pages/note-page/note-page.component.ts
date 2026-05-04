@@ -14,7 +14,7 @@ import { tap } from 'rxjs';
   styleUrl: './note-page.component.css',
 })
 export class NotePageComponent implements OnInit {
-  private readonly noteServices = inject(NoteService);
+  // private readonly noteServices = inject(NoteService);
   private readonly store = inject(Store);
 
   userNotes = signal<Note[]>([]);

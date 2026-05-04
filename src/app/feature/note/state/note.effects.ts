@@ -43,16 +43,7 @@ export class NotesEffects {
     },
     { dispatch: false },
   );
-  // addNote$ = createEffect(() =>
-  //   this.action$.pipe(
-  //     ofType(NoteActions.addNote),
-  //     concatMap((action) =>
-  //       this.noteServices
-  //         .addNote(action.note)
-  //         .pipe(map((resp: any) => NoteActions.addNottSuccess({ note: resp.note }))),
-  //     ),
-  //   ),
-  // );
+
   addNote = createEffect(() => {
     return this.action$.pipe(
       ofType(NoteActions.addNote),

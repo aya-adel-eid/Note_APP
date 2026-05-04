@@ -1,3 +1,4 @@
 export const STORED_KYE = {
   TOKEN: `userToken`,
+  user: 'userData',
 };
