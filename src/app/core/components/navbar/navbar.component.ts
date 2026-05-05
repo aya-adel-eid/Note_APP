@@ -4,20 +4,22 @@ import { AddNoteComponent } from '../../../feature/note/components/add-note/add-
 import { AuthService } from '../../../feature/auth/services/auth.service';
 import { Store } from '@ngrx/store';
 import { logOutAction } from '../../../feature/auth/state/auth.actions';
+import { NoteService } from '../../../feature/note/services/note.service';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   private readonly matDialog = inject(MatDialog);
-  private readonly authServices = inject(AuthService);
   private readonly store = inject(Store);
+  private readonly noteService = inject(NoteService);
   openDialog() {
+    this.noteService.updateNote.set(null);
     this.matDialog.open(AddNoteComponent, {
       width: '700px',
-      height: '350px',
     });
   }
   signOut() {

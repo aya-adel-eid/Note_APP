@@ -5,23 +5,36 @@
     class="focus:outline-none focus:ring-0 bg-transparent ">
 </mat-form-field>
 
-@if (control()?.touched&&control()?.errors) {
-<mat-error class="text-sm md:text-xl  ">Ensure that these requirements are met:</mat-error>
-@if (control()?.hasError('email')) {
-<mat-error class="  mb-2"><span class="text-xl px-1.5">*</span>Please enter a valid email
-  address</mat-error>
-}
-@if (control()?.hasError('required')) {
-<mat-error class="mb-2"><span class="text-xl px-1.5">*</span>this field is
-  <strong>required</strong></mat-error>
-}
-@if (control()?.hasError('pattern')) {
-<mat-error class="   mb-2"><span class="text-xl px-1.5">*</span>accept only egypt phone numbers!</mat-error>
-}
-@if (control()?.hasError('minlength')) {
-<mat-error class="   mb-2"><span class="text-xl px-1.5">*</span>Name Should be more than or equal 3 chars! </mat-error>
-}
-@if (control()?.hasError('maxlength')) {
-<mat-error class="  mb-2"><span class="text-xl px-1.5">*</span>Name Should be less than or equal 20 chars!</mat-error>
-}
+@if (control()?.touched && control()?.errors) {
+<div class="bg-red-50 border-l-4 border-red-400 rounded-lg px-4 py-3 mb-3 -mt-3">
+  <p class="text-red-600 font-semibold text-sm mb-2">
+    <i class="fa-solid fa-circle-exclamation mr-1"></i>
+    Ensure that these requirements are met:
+  </p>
+  @if (control()?.hasError('email')) {
+  <p class="text-red-500 text-sm flex items-center gap-2">
+    <i class="fa-solid fa-xmark text-red-400"></i> Please enter a valid email address
+  </p>
+  }
+  @if (control()?.hasError('required')) {
+  <p class="text-red-500 text-sm flex items-center gap-2">
+    <i class="fa-solid fa-xmark text-red-400"></i> This field is <strong>required</strong>
+  </p>
+  }
+  @if (control()?.hasError('pattern')) {
+  <p class="text-red-500 text-sm flex items-center gap-2">
+    <i class="fa-solid fa-xmark text-red-400"></i> Accept only Egypt phone numbers!
+  </p>
+  }
+  @if (control()?.hasError('minlength')) {
+  <p class="text-red-500 text-sm flex items-center gap-2">
+    <i class="fa-solid fa-xmark text-red-400"></i> Name should be more than or equal 3 chars!
+  </p>
+  }
+  @if (control()?.hasError('maxlength')) {
+  <p class="text-red-500 text-sm flex items-center gap-2">
+    <i class="fa-solid fa-xmark text-red-400"></i> Name should be less than or equal 20 chars!
+  </p>
+  }
+</div>
 }

@@ -15,9 +15,9 @@ export const AUTH_ROUTES: Routes = [
     title: 'signIn',
   },
   {
-    path: 'signUp',
+    path: 'signup',
     loadComponent: () =>
       import('./pages/log-up-page/log-up-page.component').then((c) => c.LogUpPageComponent),
-    title: 'SignUp',
+    title: 'signup',
   },
 ];

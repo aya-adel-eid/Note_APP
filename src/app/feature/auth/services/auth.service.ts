@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BaseHttpService } from '../../../core/services/helper/base-http.service';
 import { APP_APIS } from '../../../core/constance/APP_APIs';
 import { App } from '../../../app';
@@ -8,11 +8,13 @@ import { jwtDecode } from 'jwt-decode';
 import { LogIn } from '../interfaces/Login';
 import { json } from 'stream/consumers';
 import { SignUp } from '../interfaces/signUp';
+import { isPlatformBrowser } from '@angular/common';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService extends BaseHttpService {
   private readonly router = inject(Router);
+  private readonly plat_id = inject(PLATFORM_ID);
   logUp(userData: {}) {
     return this.httpClient.post<SignUp>(APP_APIS.AUTH.SIGNUP, userData);
   }
@@ -32,9 +34,11 @@ export class AuthService extends BaseHttpService {
   }
   getAutoLocalStorage() {
     const user = localStorage.getItem(STORED_KYE.user);
+
     if (user) {
       return JSON.parse(user);
     }
+
     return null;
   }
   // errors

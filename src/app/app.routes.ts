@@ -24,7 +24,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'note',
+        path: '',
         loadChildren: () => import('./feature/note/note.routes').then((c) => c.NOte_ROUTES),
       },
     ],

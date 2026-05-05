@@ -8,7 +8,11 @@ import { Store } from '@ngrx/store';
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const platID = inject(PLATFORM_ID);
   const store = inject(Store);
-  if (req.urlWithParams.includes('signIn') || req.urlWithParams.includes('signUp'))
+  if (
+    req.urlWithParams.includes('signIn') ||
+    req.urlWithParams.includes('signUp') ||
+    req.urlWithParams.includes('allNotes')
+  )
     return next(req);
   if (isPlatformBrowser(platID)) {
     const token = store.selectSignal(selectToken);

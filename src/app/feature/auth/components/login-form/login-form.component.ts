@@ -9,16 +9,15 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { InputFormComponent } from '../input-form/input-form.component';
-import { error } from 'console';
-import { HttpErrorResponse } from '@angular/common/http';
-import { MatAnchor } from '@angular/material/button';
+
 import { Router, RouterLink } from '@angular/router';
-import { STORED_KYE } from '../../../../core/constance/STORED_KYES';
+
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs';
+
 import { logInAction } from '../../state/auth.actions';
-import { AuthAction } from '../../state/actions-type';
-import { selectToken } from '../../state/auth.selector';
+
+import { loadingSpinnerAction } from '../../../../shared/loadingSpinnerState/loadingSpinner.action';
+import { selectStatue } from '../../../../shared/loadingSpinnerState/loadingSpinner.selector';
 
 @Component({
   selector: 'app-login-form',
@@ -29,7 +28,7 @@ import { selectToken } from '../../state/auth.selector';
     InputFormComponent,
     ɵInternalFormsSharedModule,
     ReactiveFormsModule,
-    MatAnchor,
+
     RouterLink,
   ],
   templateUrl: './login-form.component.html',
@@ -40,6 +39,7 @@ export class LoginFormComponent {
   private readonly authServices = inject(AuthService);
   private readonly router = inject(Router);
   private readonly stateStore = inject(Store);
+  loading = this.stateStore.selectSignal(selectStatue);
   loginForm!: FormGroup;
   constructor() {
     this.signIn();
@@ -59,9 +59,10 @@ export class LoginFormComponent {
     });
   }
   logIn() {
-    this.stateStore.dispatch(logInAction(this.loginForm.value));
-    const token = this.stateStore.selectSignal(selectToken);
-    console.log(token());
+    if (this.loginForm.valid) {
+      this.stateStore.dispatch(loadingSpinnerAction({ statue: true }));
+      this.stateStore.dispatch(logInAction(this.loginForm.value));
+    }
 
     // this.authServices
     //   .logIn(this.loginForm.value)

@@ -4,7 +4,7 @@ import { LogupFormComponent } from '../../components/logup-form/logup-form.compo
 
 @Component({
   selector: 'app-log-up-page',
-  imports: [LoginFormComponent, LogupFormComponent],
+  imports: [LogupFormComponent],
   templateUrl: './log-up-page.component.html',
   styleUrl: './log-up-page.component.css',
 })

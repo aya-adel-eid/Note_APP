@@ -15,7 +15,7 @@ export const loggedGuard: CanActivateFn = (route, state) => {
     // const token = localStorage.getItem(STORED_KYE.TOKEN);
     const token = store.selectSignal(selectToken);
     if (token() && authServices.decodeCode(token()!)) {
-      return router.parseUrl('/note');
+      return router.parseUrl('/userNotes');
     }
   }
   return true;

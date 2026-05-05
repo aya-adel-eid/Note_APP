@@ -1,0 +1,5 @@
+@layer components {
+  .btnSend {
+    @apply flex-1 text-white bg-rose-400 hover:bg-rose-500 rounded-lg px-6 py-2.5 font-semibold cursor-pointer transition-colors;
+  }
+}

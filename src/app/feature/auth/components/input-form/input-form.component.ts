@@ -8,7 +8,7 @@ import {
   MatFormField,
   MatInput,
 } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -18,7 +18,7 @@ import {
 } from '@angular/forms';
 @Component({
   selector: 'app-input-form',
-  imports: [MatError, MatHint, MatLabel, MatFormField, MatInput, MatInputModule],
+  imports: [MatLabel, MatFormField, MatInput, MatInputModule],
   templateUrl: './input-form.component.html',
   styleUrl: './input-form.component.css',
   providers: [

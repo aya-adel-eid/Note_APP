@@ -1,14 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { InputFormComponent } from '../input-form/input-form.component';
-import { MatButtonModule, MatAnchor } from '@angular/material/button';
-import { MatCardModule, MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { error } from 'console';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { signUpAction } from '../../state/auth.actions';
+import { loadingSpinnerAction } from '../../../../shared/loadingSpinnerState/loadingSpinner.action';
+import { selectStatue } from '../../../../shared/loadingSpinnerState/loadingSpinner.selector';
 @Component({
   selector: 'app-logup-form',
   imports: [
@@ -17,7 +18,7 @@ import { signUpAction } from '../../state/auth.actions';
     MatCardTitle,
     MatCardContent,
     ReactiveFormsModule,
-    MatAnchor,
+
     RouterLink,
   ],
   templateUrl: './logup-form.component.html',
@@ -25,8 +26,9 @@ import { signUpAction } from '../../state/auth.actions';
 })
 export class LogupFormComponent {
   private readonly fb = inject(FormBuilder);
-  private readonly authServices = inject(AuthService);
+
   private readonly store = inject(Store);
+  loading = this.store.selectSignal(selectStatue);
   registerForm!: FormGroup;
   constructor() {
     this.signUP();
@@ -49,10 +51,9 @@ export class LogupFormComponent {
     });
   }
   logUP() {
-    this.store.dispatch(signUpAction(this.registerForm.value));
-    // this.authServices.logUp(this.registerForm.value).subscribe({
-    //   next: (resp) => {},
-    //   error: (error: HttpErrorResponse) => {},
-    // });
+    if (this.registerForm.valid) {
+      this.store.dispatch(loadingSpinnerAction({ statue: true }));
+      this.store.dispatch(signUpAction(this.registerForm.value));
+    }
   }
 }

@@ -13,12 +13,15 @@ import { Router } from '@angular/router';
 import { STORED_KYE } from '../../../core/constance/STORED_KYES';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { loadingSpinnerAction } from '../../../shared/loadingSpinnerState/loadingSpinner.action';
 @Injectable({ providedIn: 'root' })
 export class authEffect {
   private readonly action$ = inject(Actions);
   private readonly authServices = inject(AuthService);
   private readonly router = inject(Router);
   private readonly toaster = inject(ToastrService);
+  private readonly store = inject(Store);
   count = signal<number>(5);
   // sign in
   logIn$ = createEffect(() => {
@@ -28,9 +31,13 @@ export class authEffect {
         this.authServices.logIn({ password, email }).pipe(
           map((data) => {
             localStorage.setItem(STORED_KYE.user, JSON.stringify(data));
+            this.store.dispatch(loadingSpinnerAction({ statue: false }));
             return AuthAction.loginSuccessfullyAction({ info: data, isAuto: false });
           }),
-          catchError((error: HttpErrorResponse) => of(loginFailureAction({ error: error.error }))),
+          catchError((error: HttpErrorResponse) => {
+            this.store.dispatch(loadingSpinnerAction({ statue: false }));
+            return of(loginFailureAction({ error: error.error }));
+          }),
         ),
       ),
     );
@@ -45,7 +52,7 @@ export class authEffect {
               progressBar: true,
               timeOut: 4000,
             });
-            this.router.navigateByUrl('/note');
+            this.router.navigateByUrl('/userNotes');
           }
         }),
       );
@@ -86,11 +93,13 @@ export class authEffect {
       exhaustMap((data) =>
         this.authServices.logUp(data).pipe(
           map((data) => {
+            this.store.dispatch(loadingSpinnerAction({ statue: false }));
             return AuthAction.signUpSuccessfullyAction({ userData: data });
           }),
-          catchError((error: HttpErrorResponse) =>
-            of(AuthAction.signUpFailureAction({ error: error.error })),
-          ),
+          catchError((error: HttpErrorResponse) => {
+            this.store.dispatch(loadingSpinnerAction({ statue: false }));
+            return of(AuthAction.signUpFailureAction({ error: error.error }));
+          }),
         ),
       ),
     );
