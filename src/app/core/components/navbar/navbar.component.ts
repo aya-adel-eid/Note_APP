@@ -19,7 +19,9 @@ export class NavbarComponent {
   openDialog() {
     this.noteService.updateNote.set(null);
     this.matDialog.open(AddNoteComponent, {
-      width: '700px',
+      width: '500px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
     });
   }
   signOut() {
