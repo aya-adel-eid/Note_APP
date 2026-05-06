@@ -21,9 +21,16 @@
     <i class="fa-solid fa-xmark text-red-400"></i> This field is <strong>required</strong>
   </p>
   }
-  @if (control()?.hasError('pattern')) {
+  @if (control()?.hasError('pattern')&&type()==='tel') {
   <p class="text-red-500 text-sm flex items-center gap-2">
     <i class="fa-solid fa-xmark text-red-400"></i> Accept only Egypt phone numbers!
+  </p>
+  }
+  @if (control()?.hasError('pattern')&&type()==='password') {
+  <p class="text-red-500 text-sm flex items-center gap-2">
+    <i class="fa-solid fa-xmark text-red-400"></i> Password must be 8–10 characters long, include at least one uppercase
+    letter,
+    one lowercase letter, one number, and one special character (@, $, !, %, *, ?, &)
   </p>
   }
   @if (control()?.hasError('minlength')) {

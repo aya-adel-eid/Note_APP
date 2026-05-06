@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddNoteComponent } from '../../../feature/note/components/add-note/add-note.component';
-import { AuthService } from '../../../feature/auth/services/auth.service';
+
 import { Store } from '@ngrx/store';
 import { logOutAction } from '../../../feature/auth/state/auth.actions';
 import { NoteService } from '../../../feature/note/services/note.service';
